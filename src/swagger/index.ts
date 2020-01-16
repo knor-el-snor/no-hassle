@@ -1,9 +1,12 @@
+import * as _ from 'lodash';
+
 import { IMethod, IDocsOptions, ISwaggerOptions, ISwaggerDefinition } from '../interfaces';
 import { cleanPath } from '../lib/utils';
 import { baseDefinition } from './baseDefinition';
 import { getParameters } from './parameter';
 import { getResponses } from './response';
 import { getAuthentication } from './auth';
+import { getHeaders } from './headers';
 
 const globalSwagger: ISwaggerDefinition = {
   ...baseDefinition({
@@ -21,6 +24,7 @@ export const generateSwagger = (path: string, method: IMethod, options: IDocsOpt
 
   const cleanedPath = cleanPath(path);
   const result = {
+    parameters: [],
     [method]: {
       tags,
       produces: ['application/json'],
@@ -39,10 +43,15 @@ export const generateSwagger = (path: string, method: IMethod, options: IDocsOpt
   } else {
     updateSwagger('paths', { [cleanedPath]: result });
   }
+
+  if (result.parameters.length > 0) {
+    console.log(globalSwagger);
+  }
 };
 
 export const getSwagger = (options: ISwaggerOptions = {}): ISwaggerDefinition => {
-  const { apiVersion = '2.0', host = '', auth, ...otherOptions } = options;
+  // TODO: Split header definitions outside definitions
+  const { apiVersion = '2.0', host = '', auth, headers, ...otherOptions } = options;
 
   const authentication = getAuthentication(auth);
   const result: ISwaggerDefinition = {
@@ -53,7 +62,9 @@ export const getSwagger = (options: ISwaggerOptions = {}): ISwaggerDefinition =>
       ...globalSwagger.info,
       ...otherOptions,
     },
+    definitions: { ...globalSwagger.definitions, ...getHeaders(headers) },
   };
 
+  console.log('result: ', result);
   return result;
 };

@@ -55,7 +55,7 @@ export const getResponses = (swagger: ISwaggerDefinition, output?: IOutput) => {
     405: {
       description: '405 - Validation exception',
     },
-    '5XX': {
+    500: {
       description: '500 - Unknown error',
       schema: {
         $ref: '#/definitions/UnknownError',

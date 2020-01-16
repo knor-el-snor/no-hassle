@@ -1,4 +1,5 @@
 const j2s = require('joi-to-swagger');
+import * as _ from 'lodash';
 
 import { IInput, ISwaggerDefinition, ISchema } from '../interfaces';
 import { getDefinition } from './definition';
@@ -6,7 +7,7 @@ import { getDefinition } from './definition';
 export const getParameters = (swagger: ISwaggerDefinition, input?: IInput) => {
   if (!input) return [];
 
-  const { body, query, params } = input;
+  const { body, query, params, headers = [] } = input;
   const result: {
     in: string
     name: string
@@ -54,6 +55,18 @@ export const getParameters = (swagger: ISwaggerDefinition, input?: IInput) => {
       });
     });
   }
+
+  // Headers
+  headers.forEach((header) => {
+    result.push({
+      in: 'header',
+      name: _.camelCase(header),
+      required: false, // TODO: Add this possibility
+      schema: {
+        $ref: `#/definitions/header_${header}`,
+      },
+    });
+  });
 
   return result;
 };

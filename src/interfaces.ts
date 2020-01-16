@@ -34,6 +34,13 @@ export interface ISwaggerDefinition {
   definitions: {};
 }
 
+export interface ISwaggerHeader {
+  name: string;
+  type: string | number;
+  description?: string;
+  // required?: boolean; // TODO: Add this possibility!
+}
+
 export interface ISwaggerOptions {
   title?: string;
   description?: string;
@@ -42,12 +49,14 @@ export interface ISwaggerOptions {
   apiVersion?: '2.0' | '3.0';
   version?: string;
   auth?: 'basic';
+  headers?: ISwaggerHeader[];
 }
 
 export interface IInput {
   body?: ISchema;
   query?: ISchema | object;
   params?: ISchema | object;
+  headers?: string[];
 }
 
 export type IOutput = {
