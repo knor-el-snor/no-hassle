@@ -31,7 +31,7 @@
     "joi-to-swagger": "git://github.com/ShopBonsai/joi-to-swagger.git",
     "ramda": "^0.27.0",
     "swagger-ui-express": "4.1.2",
-    "swagger2openapi": "5.3.1"
+    "swagger2openapi": "5.3.4"
   },
   "devDependencies": {
     "@types/express": "4.17.0",
