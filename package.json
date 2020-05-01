@@ -14,10 +14,11 @@
     "test:watch": "jest --watchAll",
     "prettier": "prettier --write \"**/*.ts\"",
     "pretest": "npm run build",
-    "prepare": "npm run build",
+    "prepare": "npm run snyk-protect && npm run build",
     "release": "node_modules/np/source/cli.js --no-cleanup",
     "git:clean": "git branch --merged | egrep -v \"(^\\*|master|staging|develop)\" | xargs git branch -d",
-    "git:clean-remote": "git remote prune origin"
+    "git:clean-remote": "git remote prune origin",
+    "snyk-protect": "snyk protect"
   },
   "precommit": [
     "lint",
@@ -31,7 +32,8 @@
     "joi-to-swagger": "git://github.com/ShopBonsai/joi-to-swagger.git",
     "ramda": "^0.27.0",
     "swagger-ui-express": "4.1.2",
-    "swagger2openapi": "5.3.1"
+    "swagger2openapi": "5.3.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/express": "4.17.0",
@@ -57,5 +59,6 @@
   "directories": {
     "tests": "tests"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "snyk": true
 }
