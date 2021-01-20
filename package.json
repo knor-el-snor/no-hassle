@@ -29,7 +29,7 @@
     "celebrate": "~10.0.1",
     "express": "4.17.1",
     "joi-to-swagger": "git://github.com/ShopBonsai/joi-to-swagger.git",
-    "ramda": "^0.27.0",
+    "ramda": "^0.27.1",
     "swagger-ui-express": "4.1.2"
   },
   "devDependencies": {
